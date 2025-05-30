@@ -1,5 +1,6 @@
 /nginx.conf
 /.env.dev
+/.env.docker
 /.env.local
 /.env.local.php
 /.env.*.local

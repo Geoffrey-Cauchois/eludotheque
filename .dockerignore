@@ -1,0 +1,24 @@
+# Ignorer les répertoires lourds, inutiles ou dangeureux pour le build
+vendor/*
+node_modules
+var/*
+.git/
+.gitignore
+.env.local
+.env.*.local
+tests/
+
+# Ignorer les fichiers de config ou temporaires locaux
+*.log
+*.cache
+*.sqlite
+*.zip
+*.tar.gz
+*.DS_Store
+Thumbs.db
+
+# Ignorer les fichiers de l’éditeur
+.idea/
+.vscode/
+*.swp
+*.swo
