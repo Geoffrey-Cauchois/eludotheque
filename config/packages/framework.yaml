@@ -11,7 +11,7 @@ framework:
     http_client:
         scoped_clients:
             board_game_geek.client:
-                base_uri: 'https://boardgamegeek.com/api'
+                base_uri: 'https://boardgamegeek.com/xmlapi2/'
 
 when@test:
     framework:

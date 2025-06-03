@@ -8,7 +8,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-class Jeu
+class Game
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]

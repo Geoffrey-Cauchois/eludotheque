@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Jeu;
+use App\Entity\Game;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Dom\Entity;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Throwable;
 
 class BoardGameService
 {
@@ -26,19 +23,16 @@ class BoardGameService
 
     public function loadBoardGames(): void
     {
-        $response = $this->boardGameGeekClient->request('GET', 'https://boardgamegeek.com/xmlapi2/thing?id=1234');
+        $response = $this->boardGameGeekClient->request('GET', 'thing?id=1234');
 
         $responseXml = simplexml_load_string($response->getContent());
 
         $responseJson = json_encode($responseXml, JSON_THROW_ON_ERROR);
         $responseArray = json_decode($responseJson, true, 512, JSON_THROW_ON_ERROR);
-
         
         $gameData = $responseArray['item'];
 
-        dump($gameData);
-
-        $game = new Jeu();
+        $game = new Game();
         $game->setName($gameData['name'][0]['@attributes']['value']);
         $game->setNameFr($gameData['name'][8]['@attributes']['value']);
         $game->setDescription($gameData['description']);

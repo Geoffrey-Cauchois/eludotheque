@@ -15,7 +15,13 @@ class GeneralController extends AbstractController
     #[Route('', name: 'home')]
     public function home(BoardGameService $boardGameService): Response
     {
-        $boardGameService->loadBoardGames();
         return $this->render('general/home.html.twig');
+    }
+
+    #[Route('/load', name: 'load_games')]
+    public function loadGames(BoardGameService $boardGameService): Response
+    {
+        $boardGameService->loadBoardGames();
+        return $this->redirectToRoute('general_home');
     }
 }
