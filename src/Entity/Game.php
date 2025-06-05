@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Trait\TraitId;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 class Game
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    use TraitId;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
@@ -52,7 +50,7 @@ class Game
 
     public function getNameFr(): string
     {
-        return $this->name;
+        return $this->nameFr;
     }
 
     public function setNameFr(string $nameFr): self
