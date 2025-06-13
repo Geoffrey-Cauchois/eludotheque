@@ -12,13 +12,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('', name: 'general_')]
 class GeneralController extends AbstractController
 {
-    #[Route('', name: 'home')]
+    #[Route('', name: 'home', methods: ['GET'])]
     public function home(BoardGameService $boardGameService): Response
     {
         return $this->render('general/home.html.twig');
     }
 
-    #[Route('/load', name: 'load_games')]
+    #[Route('/load', name: 'load_games', methods: ['GET', 'POST'])]
     public function loadGames(BoardGameService $boardGameService): Response
     {
         $boardGameService->loadBoardGames();

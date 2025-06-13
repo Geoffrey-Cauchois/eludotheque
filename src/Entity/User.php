@@ -6,22 +6,27 @@ namespace App\Entity;
 
 use App\Entity\Trait\TraitId;
 use App\Entity\Trait\TraitDateCreation;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TraitId;
     use TraitDateCreation;
 
     const ROLE_USER = 'ROLE_USER';
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     public string $username;
+
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    public string $email;
 
     #[ORM\Column(type: 'string', length: 255)]
     public string $password;
@@ -50,6 +55,17 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
         return $this;
     }
 
@@ -105,5 +121,11 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         $this->password = '';
+    }
+
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->setDateCreation(new DateTime());
     }
 }
